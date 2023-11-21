@@ -144,11 +144,13 @@ function checkPaddleHit() {
         ball.ySpeed *= 1;
     }
     // Update Score if Player 1 misses
+    // bugfix: width of hitbox by mats-pichler
     if (ball.x <= 0 + 10 + (player1.width / 4)) {
         scorePlayer2 += 1;
         resetBall();
     }
-    // Update Score if Player 2 misses
+    // Update Score if Player 2 misses 
+    // bugfix: width of hitbox by mats-pichler
     if (ball.x >= canvas.width - 10 - (player2.width / 4)) {
         scorePlayer1 += 1;
         resetBall();
