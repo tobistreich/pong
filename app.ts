@@ -35,7 +35,8 @@ function createBall() {
 }
 
 function createStartGameHeading() {
-    const heading = createHeading("Press Space to play!");
+    const headingText = "press space to play!<br><br>controls: w + s / ↑ + ↓";
+    const heading = createHeading(headingText);
     document.body.appendChild(heading);
 
     // Blink every 0.5 seconds
@@ -45,12 +46,13 @@ function createStartGameHeading() {
 }
 
 function createHeading(text: string) {
-    const heading = document.createElement("h1");
-    heading.textContent = text;
+    const heading = document.createElement("h2");
+    heading.innerHTML = text;
     heading.style.position = "absolute";
     heading.style.top = "6rem";
     heading.style.color = "#FFF";
     heading.style.fontFamily = "Monospace";
+    heading.style.textAlign = "center";
     return heading;
 }
 
