@@ -18,7 +18,7 @@ function createPlayer(x: number) {
         width: 20,
         height: 120,
         color: '#FFF',
-        speed: 15,
+        speed: 5,
     };
 }
 
@@ -29,8 +29,8 @@ function createBall() {
         width: 20,
         height: 20,
         color: '#FFF',
-        xSpeed: 2.5,
-        ySpeed: 2.5,
+        xSpeed: 1.25,
+        ySpeed: 1.25,
     };
 }
 
@@ -237,4 +237,4 @@ window.addEventListener('keydown', (event) => {
         removeStartGameHeading();
     }
 });
-setInterval(gameLoop, 1000 / 60);
+setInterval(gameLoop, 1000 / 120);
