@@ -1,5 +1,5 @@
-const canvas = document.getElementById("pongCanvas") as HTMLCanvasElement;
-const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+const canvas = document.getElementById('pongCanvas') as HTMLCanvasElement;
+const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 let gameStarted = false;
 let scorePlayer1 = 0;
@@ -17,10 +17,10 @@ function createPlayer(x: number) {
         y: canvas.height / 2 - 60,
         width: 20,
         height: 120,
-        color: "#FFF",
+        color: '#FFF',
         speed: 15,
     };
-} 
+}
 
 function createBall() {
     return {
@@ -28,53 +28,72 @@ function createBall() {
         y: canvas.height / 2,
         width: 20,
         height: 20,
-        color: "#FFF",
+        color: '#FFF',
         xSpeed: 2.5,
         ySpeed: 2.5,
     };
 }
 
 function createStartGameHeading() {
-    const headingText = "press space to play!<br><br>controls: w + s / ↑ + ↓";
+    const headingText = 'press space to play!<br><br>controls: w + s / ↑ + ↓';
     const heading = createHeading(headingText);
     document.body.appendChild(heading);
 
     // Blink every 0.5 seconds
     setInterval(() => {
-        heading.style.visibility = heading.style.visibility === 'hidden' ? 'visible' : 'hidden';
+        heading.style.visibility =
+            heading.style.visibility === 'hidden' ? 'visible' : 'hidden';
     }, 500);
 }
 
 function createHeading(text: string) {
-    const heading = document.createElement("h2");
+    const heading = document.createElement('h2');
     heading.innerHTML = text;
-    heading.style.position = "absolute";
-    heading.style.top = "6rem";
-    heading.style.color = "#FFF";
-    heading.style.fontFamily = "Monospace";
-    heading.style.textAlign = "center";
+    heading.style.position = 'absolute';
+    heading.style.top = '6rem';
+    heading.style.color = '#FFF';
+    heading.style.fontFamily = 'Monospace';
+    heading.style.textAlign = 'center';
     return heading;
 }
 
 function removeStartGameHeading() {
-    const heading = document.querySelector("h1");
+    const heading = document.querySelector('h2');
     if (heading) {
         heading.remove();
     }
 }
 
-function drawRectangle(x: number, y: number, width: number, height: number, color: string) {
+function drawRectangle(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    color: string,
+) {
     ctx.fillStyle = color;
     ctx.fillRect(x, y, width, height);
 }
 
 function draw() {
     // draw Playfield
-    drawRectangle(0, 0, canvas.width, canvas.height, "#000");
+    drawRectangle(0, 0, canvas.width, canvas.height, '#000');
 
     // draw Players
-    drawRectangle(player1.x, player1.y, player1.width, player1.height, player1.color);
-    drawRectangle(player2.x - player2.width, player2.y, player2.width, player2.height, player2.color);
+    drawRectangle(
+        player1.x,
+        player1.y,
+        player1.width,
+        player1.height,
+        player1.color,
+    );
+    drawRectangle(
+        player2.x - player2.width,
+        player2.y,
+        player2.width,
+        player2.height,
+        player2.color,
+    );
 
     // draw Ball
     drawRectangle(ball.x, ball.y, ball.width, ball.height, ball.color);
@@ -82,8 +101,8 @@ function draw() {
 
 function movePlayers() {
     if (gameStarted) {
-        window.addEventListener("keydown", handleKeyDown);
-        window.addEventListener("keyup", handleKeyUp);
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keyup', handleKeyUp);
     }
 }
 
@@ -143,35 +162,43 @@ function handleKeyUp(event: KeyboardEvent) {
 
 function moveBall() {
     if (gameStarted) {
-        // if ball hits bottom edge change y direction 
+        // if ball hits bottom edge change y direction
         if (ball.y >= canvas.height - ball.height || ball.y <= 0) {
             ball.ySpeed *= -1;
         }
         ball.y += ball.ySpeed;
         ball.x += ball.xSpeed;
-    } 
+    }
 }
 
 function checkPaddleHit() {
     // Check if player1 hits ball
-    if (ball.x <= player1.x + player1.width && ball.y >= player1.y && ball.y <= player1.y + player1.height) {
+    if (
+        ball.x <= player1.x + player1.width &&
+        ball.y >= player1.y &&
+        ball.y <= player1.y + player1.height
+    ) {
         ball.xSpeed *= -1.3;
         ball.ySpeed *= 1.3;
-    } 
+    }
     // Check if player2 hits ball
-    else if (ball.x + ball.width + 10 >= player2.x && ball.y >= player2.y && ball.y <= player2.y + player2.height) {
+    else if (
+        ball.x + ball.width + 10 >= player2.x &&
+        ball.y >= player2.y &&
+        ball.y <= player2.y + player2.height
+    ) {
         ball.xSpeed *= -1;
         ball.ySpeed *= 1;
-    } 
+    }
     // Update Score if Player 1 misses
     // bugfix: width of hitbox by mats-pichler
-    if (ball.x <= 0 + 10 + (player1.width / 2)) {
+    if (ball.x <= 0 + 10 + player1.width / 2) {
         scorePlayer2 += 1;
         resetBall();
-    } 
-    // Update Score if Player 2 misses 
+    }
+    // Update Score if Player 2 misses
     // bugfix: width of hitbox by mats-pichler
-    if (ball.x >= canvas.width - 10 - (player2.width / 2)) {
+    if (ball.x >= canvas.width - 10 - player2.width / 2) {
         scorePlayer1 += 1;
         resetBall();
     }
@@ -187,10 +214,10 @@ function resetBall() {
 function updateScore() {
     if (gameStarted) {
         if (!scoreElement) {
-            scoreElement = createHeading("");
+            scoreElement = createHeading('');
             document.body.appendChild(scoreElement);
         }
-        scoreElement.textContent = scorePlayer1 + " : " + scorePlayer2;
+        scoreElement.textContent = scorePlayer1 + ' : ' + scorePlayer2;
     }
 }
 
@@ -204,10 +231,10 @@ function gameLoop() {
 
 // main program
 createStartGameHeading();
-window.addEventListener("keydown", (event) => {
-    if (event.code === "Space" && !gameStarted) {
+window.addEventListener('keydown', (event) => {
+    if (event.code === 'Space' && !gameStarted) {
         gameStarted = true;
         removeStartGameHeading();
     }
-})
+});
 setInterval(gameLoop, 1000 / 60);
