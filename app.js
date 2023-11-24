@@ -67,12 +67,6 @@ function draw() {
     // draw Ball
     drawRectangle(ball.x, ball.y, ball.width, ball.height, ball.color);
 }
-function movePlayers() {
-    if (gameStarted) {
-        window.addEventListener('keydown', handleKeyDown);
-        window.addEventListener('keyup', handleKeyUp);
-    }
-}
 function handleKeyDown(event) {
     switch (event.key) {
         case 'w':
@@ -180,17 +174,21 @@ function updateScore() {
 }
 function gameLoop() {
     draw();
-    movePlayers();
     moveBall();
     checkPaddleHit();
     updateScore();
 }
 // main program
 createStartGameHeading();
+gameLoop();
+function f() {
+    setInterval(gameLoop, 1000 / 120);
+    window.addEventListener('keydown', handleKeyDown);
+}
 window.addEventListener('keydown', function (event) {
     if (event.code === 'Space' && !gameStarted) {
         gameStarted = true;
         removeStartGameHeading();
+        f();
     }
 });
-setInterval(gameLoop, 1000 / 120);
