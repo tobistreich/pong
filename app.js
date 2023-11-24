@@ -1,33 +1,19 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Ball_1 = require("./Ball");
+var players_1 = require("./players");
 var canvas = document.getElementById('pongCanvas');
 var ctx = canvas.getContext('2d');
 var gameStarted = false;
 var scorePlayer1 = 0;
 var scorePlayer2 = 0;
-var player1 = createPlayer(10);
-var player2 = createPlayer(canvas.width - 10);
-var ball = createBall();
+var player1 = new players_1.Player();
+var player2 = new players_1.Player();
+var ball = new Ball_1.Ball();
+player1.createPlayer(10);
+player2.createPlayer(canvas.width - 10);
+ball.createBall();
 var scoreElement = null;
-function createPlayer(x) {
-    return {
-        x: x,
-        y: canvas.height / 2 - 60,
-        width: 20,
-        height: 120,
-        color: '#FFF',
-        speed: 5,
-    };
-}
-function createBall() {
-    return {
-        x: canvas.width / 2,
-        y: canvas.height / 2,
-        width: 20,
-        height: 20,
-        color: '#FFF',
-        xSpeed: 1.25,
-        ySpeed: 1.25,
-    };
-}
 function createStartGameHeading() {
     var headingText = 'press space to play!<br><br>controls: w + s / ↑ + ↓';
     var heading = createHeading(headingText);
@@ -62,31 +48,31 @@ function draw() {
     // draw Playfield
     drawRectangle(0, 0, canvas.width, canvas.height, '#000');
     // draw Players
-    drawRectangle(player1.x, player1.y, player1.width, player1.height, player1.color);
-    drawRectangle(player2.x - player2.width, player2.y, player2.width, player2.height, player2.color);
+    drawRectangle(this.player1.x, this.player1.y, this.player1.width, this.player1.height, this.player1.color);
+    drawRectangle(this.player2.x - this.player2.width, this.player2.y, this.player2.width, this.player2.height, this.player2.color);
     // draw Ball
-    drawRectangle(ball.x, ball.y, ball.width, ball.height, ball.color);
+    drawRectangle(this.ball.x, this.ball.y, this.ball.width, this.ball.height, this.ball.color);
 }
 function handleKeyDown(event) {
     switch (event.key) {
         case 'w':
-            if (player1.y > 0) {
-                player1.y -= player1.speed;
+            if (this.player1.y > 0) {
+                this.player1.y -= this.player1.speed;
             }
             break;
         case 's':
-            if (player1.y < canvas.height - player1.height) {
-                player1.y += player1.speed;
+            if (this.player1.y < canvas.height - this.player1.height) {
+                this.player1.y += this.player1.speed;
             }
             break;
         case 'ArrowUp':
-            if (player2.y > 0) {
-                player2.y -= player2.speed;
+            if (this.player2.y > 0) {
+                this.player2.y -= this.player2.speed;
             }
             break;
         case 'ArrowDown':
-            if (player2.y < canvas.height - player2.height) {
-                player2.y += player2.speed;
+            if (this.player2.y < canvas.height - this.player2.height) {
+                this.player2.y += this.player2.speed;
             }
             break;
         default:
@@ -96,72 +82,56 @@ function handleKeyDown(event) {
 function handleKeyUp(event) {
     switch (event.key) {
         case 'w':
-            if (player1.y > 0) {
-                player1.y -= player1.speed;
+            if (this.player1.y > 0) {
+                this.player1.y -= this.player1.speed;
             }
             break;
         case 's':
-            if (player1.y < canvas.height - player1.height) {
-                player1.y += player1.speed;
+            if (this.player1.y < canvas.height - this.player1.height) {
+                this.player1.y += this.player1.speed;
             }
             break;
         case 'ArrowUp':
-            if (player2.y > 0) {
-                player2.y -= player2.speed;
+            if (this.player2.y > 0) {
+                this.player2.y -= this.player2.speed;
             }
             break;
         case 'ArrowDown':
-            if (player2.y < canvas.height - player2.height) {
-                player2.y += player2.speed;
+            if (this.player2.y < canvas.height - this.player2.height) {
+                this.player2.y += this.player2.speed;
             }
             break;
         default:
             break;
     }
 }
-function moveBall() {
-    if (gameStarted) {
-        // if ball hits bottom edge change y direction
-        if (ball.y >= canvas.height - ball.height || ball.y <= 0) {
-            ball.ySpeed *= -1;
-        }
-        ball.y += ball.ySpeed;
-        ball.x += ball.xSpeed;
-    }
-}
 function checkPaddleHit() {
-    // Check if player1 hits ball
-    if (ball.x <= player1.x + player1.width &&
-        ball.y >= player1.y &&
-        ball.y <= player1.y + player1.height) {
-        ball.xSpeed *= -1.3;
-        ball.ySpeed *= 1.3;
+    // Check if this.player1 hits ball
+    if (this.ball.x <= this.player1.x + this.player1.width &&
+        this.ball.y >= this.player1.y &&
+        this.ball.y <= this.player1.y + this.player1.height) {
+        this.ball.xSpeed *= -1.3;
+        this.ball.ySpeed *= 1.3;
     }
-    // Check if player2 hits ball
-    else if (ball.x + ball.width + 10 >= player2.x &&
-        ball.y >= player2.y &&
-        ball.y <= player2.y + player2.height) {
-        ball.xSpeed *= -1;
-        ball.ySpeed *= 1;
+    // Check if this.player2 hits this.ball
+    else if (this.ball.x + this.ball.width + 10 >= this.player2.x &&
+        this.ball.y >= this.player2.y &&
+        this.ball.y <= this.player2.y + this.player2.height) {
+        this.ball.xSpeed *= -1;
+        this.ball.ySpeed *= 1;
     }
-    // Update Score if Player 1 misses
+    // Update Score if this.player 1 misses
     // bugfix: width of hitbox by mats-pichler
-    if (ball.x <= 0 + 10 + player1.width / 2) {
+    if (this.ball.x <= 0 + 10 + this.player1.width / 2) {
         scorePlayer2 += 1;
-        resetBall();
+        ball.resetBall(gameStarted);
     }
     // Update Score if Player 2 misses
     // bugfix: width of hitbox by mats-pichler
-    if (ball.x >= canvas.width - 10 - player2.width / 2) {
+    if (this.ball.x >= canvas.width - 10 - this.player2.width / 2) {
         scorePlayer1 += 1;
-        resetBall();
+        ball.resetBall(gameStarted);
     }
-}
-function resetBall() {
-    ball.x = canvas.width / 2;
-    ball.y = canvas.height / 2;
-    ball.xSpeed = 2.5;
-    ball.ySpeed = 2.5;
 }
 function updateScore() {
     if (gameStarted) {
@@ -174,7 +144,7 @@ function updateScore() {
 }
 function gameLoop() {
     draw();
-    moveBall();
+    ball.moveBall(gameStarted, Ball_1.Ball);
     checkPaddleHit();
     updateScore();
 }
