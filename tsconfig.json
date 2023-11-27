@@ -2,14 +2,13 @@
     "compilerOptions": {
         "target": "es5",
         "outDir": "./dist",
-        "rootDir": "./src",
         "strict": true,
         "sourceMap": true,
-        "module": "commonjs",
+        "module": "none"
     },
     "include": [
         "src/**/*.ts"
-    ],
+, "Player.ts", "Ball.ts"    ],
     "exclude": [
         "node_modules"
     ]

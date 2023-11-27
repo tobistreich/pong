@@ -1,5 +1,5 @@
-import {Ball} from './Ball';
-import {Player} from './players';
+import { Ball } from './Ball';
+import { Player } from './Player';
 
 const canvas = document.getElementById('pongCanvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
@@ -8,13 +8,14 @@ let gameStarted = false;
 let scorePlayer1 = 0;
 let scorePlayer2 = 0;
 
-const player1 = new Player();
-const player2 = new Player();
-const ball = new Ball();
+let player1: Player = new Player();
+let player2: Player = new Player();
+let ball: Ball = new Ball();
 
 player1.createPlayer(10);
 player2.createPlayer(canvas.width - 10);
 ball.createBall();
+console.log(ball);
 
 let scoreElement: HTMLHeadingElement | null = null;
 
@@ -166,13 +167,13 @@ function checkPaddleHit() {
     // bugfix: width of hitbox by mats-pichler
     if (this.ball.x <= 0 + 10 + this.player1.width / 2) {
         scorePlayer2 += 1;
-        ball.resetBall(gameStarted);
+        // ball.resetBall(gameStarted);
     }
     // Update Score if Player 2 misses
     // bugfix: width of hitbox by mats-pichler
     if (this.ball.x >= canvas.width - 10 - this.player2.width / 2) {
         scorePlayer1 += 1;
-        ball.resetBall(gameStarted);
+        // ball.resetBall(gameStarted);
     }
 }
 
@@ -188,7 +189,7 @@ function updateScore() {
 
 function gameLoop() {
     draw();
-    ball.moveBall(gameStarted, Ball);
+    // ball.moveBall(gameStarted, Ball);
     checkPaddleHit();
     updateScore();
 }

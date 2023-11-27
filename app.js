@@ -1,18 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Ball_1 = require("./Ball");
-var players_1 = require("./players");
+require('Ball.ts');
+var Player_1 = require("./Player");
 var canvas = document.getElementById('pongCanvas');
 var ctx = canvas.getContext('2d');
 var gameStarted = false;
 var scorePlayer1 = 0;
 var scorePlayer2 = 0;
-var player1 = new players_1.Player();
-var player2 = new players_1.Player();
-var ball = new Ball_1.Ball();
+var player1 = new Player_1.Player();
+var player2 = new Player_1.Player();
+// let ball: Ball = new Ball();
 player1.createPlayer(10);
 player2.createPlayer(canvas.width - 10);
-ball.createBall();
+// ball.createBall();
+// console.log(ball);
 var scoreElement = null;
 function createStartGameHeading() {
     var headingText = 'press space to play!<br><br>controls: w + s / ↑ + ↓';
@@ -124,13 +125,13 @@ function checkPaddleHit() {
     // bugfix: width of hitbox by mats-pichler
     if (this.ball.x <= 0 + 10 + this.player1.width / 2) {
         scorePlayer2 += 1;
-        ball.resetBall(gameStarted);
+        // ball.resetBall(gameStarted);
     }
     // Update Score if Player 2 misses
     // bugfix: width of hitbox by mats-pichler
     if (this.ball.x >= canvas.width - 10 - this.player2.width / 2) {
         scorePlayer1 += 1;
-        ball.resetBall(gameStarted);
+        // ball.resetBall(gameStarted);
     }
 }
 function updateScore() {
@@ -144,7 +145,7 @@ function updateScore() {
 }
 function gameLoop() {
     draw();
-    ball.moveBall(gameStarted, Ball_1.Ball);
+    // ball.moveBall(gameStarted, Ball);
     checkPaddleHit();
     updateScore();
 }
