@@ -1,15 +1,10 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "outDir": "./dist",
-        "strict": true,
-        "sourceMap": true,
-        "module": "none"
+      "target": "es5",
+      "module": "umd", // or "amd"
+      // other options...
     },
-    "include": [
-        "src/**/*.ts"
-, "Player.ts", "Ball.ts"    ],
-    "exclude": [
-        "node_modules"
-    ]
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"]
 }
+  

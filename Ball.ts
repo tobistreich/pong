@@ -1,4 +1,4 @@
-class Ball {
+export class Ball {
     private canvas: HTMLCanvasElement;
     private ctx: CanvasRenderingContext2D;
 
@@ -8,7 +8,7 @@ class Ball {
         ) as HTMLCanvasElement;
         this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
     }
-
+    
     public createBall() {
         return {
             x: this.canvas.width / 2,

@@ -1,4 +1,4 @@
-import { Ball } from './Ball';
+import { Ball } from './Ball'
 import { Player } from './Player';
 
 const canvas = document.getElementById('pongCanvas') as HTMLCanvasElement;

@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Ball = void 0;
 var Ball = /** @class */ (function () {
     function Ball() {
         this.canvas = document.getElementById('pongCanvas');
@@ -16,3 +19,4 @@ var Ball = /** @class */ (function () {
     };
     return Ball;
 }());
+exports.Ball = Ball;
