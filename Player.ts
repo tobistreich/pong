@@ -1,4 +1,11 @@
 export class Player {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    speed: number;
+    color: string;
+    
     private canvas = document.getElementById('pongCanvas') as HTMLCanvasElement;
     private ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
     public createPlayer(x: number) {

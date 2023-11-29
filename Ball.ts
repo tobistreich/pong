@@ -21,21 +21,21 @@ export class Ball {
         };
     }
 
-    // public moveBall(gameStarted: boolean, ball) {
-    //     if (gameStarted) {
-    //         // if ball hits bottom edge change y direction
-    //         if (ball.y >= this.canvas.height - ball.height || ball.y <= 0) {
-    //             ball.ySpeed *= -1;
-    //         }
-    //         ball.y += ball.ySpeed;
-    //         ball.x += ball.xSpeed;
-    //     }
-    // }
+    public moveBall(gameStarted: boolean, ball) {
+        if (gameStarted) {
+            // if ball hits bottom edge change y direction
+            if (ball.y >= this.canvas.height - ball.height || ball.y <= 0) {
+                ball.ySpeed *= -1;
+            }
+            ball.y += ball.ySpeed;
+            ball.x += ball.xSpeed;
+        }
+    }
 
-    // public resetBall(ball) {
-    //     ball.x = this.canvas.width / 2;
-    //     ball.y = this.canvas.height / 2;
-    //     ball.xSpeed = 2.5;
-    //     ball.ySpeed = 2.5;
-    // }
+    public resetBall(ball) {
+        ball.x = this.canvas.width / 2;
+        ball.y = this.canvas.height / 2;
+        ball.xSpeed = 2.5;
+        ball.ySpeed = 2.5;
+    }
 }
