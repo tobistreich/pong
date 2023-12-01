@@ -1,4 +1,4 @@
-class Ball {
+export class Ball {
     private canvas: HTMLCanvasElement;
     private ctx: CanvasRenderingContext2D;
 

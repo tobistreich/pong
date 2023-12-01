@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-require('Ball.ts');
+var Ball_1 = require("./Ball");
 var Player_1 = require("./Player");
 var canvas = document.getElementById('pongCanvas');
 var ctx = canvas.getContext('2d');
@@ -9,11 +9,11 @@ var scorePlayer1 = 0;
 var scorePlayer2 = 0;
 var player1 = new Player_1.Player();
 var player2 = new Player_1.Player();
-// let ball: Ball = new Ball();
+var ball = new Ball_1.Ball();
 player1.createPlayer(10);
 player2.createPlayer(canvas.width - 10);
-// ball.createBall();
-// console.log(ball);
+ball.createBall();
+console.log(ball);
 var scoreElement = null;
 function createStartGameHeading() {
     var headingText = 'press space to play!<br><br>controls: w + s / ↑ + ↓';
