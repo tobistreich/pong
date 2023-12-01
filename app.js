@@ -4,9 +4,9 @@ var Ball_1 = require("./Ball");
 var Player_1 = require("./Player");
 var canvas = document.getElementById('pongCanvas');
 var ctx = canvas.getContext('2d');
-var gameStarted = false;
 var scorePlayer1 = 0;
 var scorePlayer2 = 0;
+var gameStarted = false;
 var player1 = new Player_1.Player();
 var player2 = new Player_1.Player();
 var ball = new Ball_1.Ball();
@@ -15,6 +15,48 @@ player2.createPlayer(canvas.width - 10);
 ball.createBall();
 console.log(ball);
 var scoreElement = null;
+function gameLoop() {
+    draw();
+    // ball.moveBall(gameStarted, Ball);
+    checkPaddleHit();
+    // updateScore();
+}
+// main program
+createStartGameHeading();
+gameLoop();
+setInterval(gameLoop, 1000 / 60);
+window.addEventListener('keydown', function (event) {
+    if (event.code === 'Space' && !gameStarted) {
+        removeStartGameHeading();
+        gameStarted = true;
+    }
+    if (gameStarted) {
+        switch (event.key) {
+            case 'w':
+                if (player1.y > 0) {
+                    player1.y -= player1.speed;
+                }
+                break;
+            case 's':
+                if (player1.y < canvas.height - player1.height) {
+                    player1.y += player1.speed;
+                }
+                break;
+            case 'ArrowUp':
+                if (player2.y > 0) {
+                    player2.y -= player2.speed;
+                }
+                break;
+            case 'ArrowDown':
+                if (player2.y < canvas.height - player2.height) {
+                    player2.y += player2.speed;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+});
 function createStartGameHeading() {
     var headingText = 'press space to play!<br><br>controls: w + s / ↑ + ↓';
     var heading = createHeading(headingText);
@@ -38,7 +80,10 @@ function createHeading(text) {
 function removeStartGameHeading() {
     var heading = document.querySelector('h2');
     if (heading) {
-        heading.remove();
+        var parent_1 = heading.parentNode;
+        if (parent_1) {
+            parent_1.removeChild(heading);
+        }
     }
 }
 function drawRectangle(x, y, width, height, color) {
@@ -53,58 +98,6 @@ function draw() {
     drawRectangle(this.player2.x - this.player2.width, this.player2.y, this.player2.width, this.player2.height, this.player2.color);
     // draw Ball
     drawRectangle(this.ball.x, this.ball.y, this.ball.width, this.ball.height, this.ball.color);
-}
-function handleKeyDown(event) {
-    switch (event.key) {
-        case 'w':
-            if (this.player1.y > 0) {
-                this.player1.y -= this.player1.speed;
-            }
-            break;
-        case 's':
-            if (this.player1.y < canvas.height - this.player1.height) {
-                this.player1.y += this.player1.speed;
-            }
-            break;
-        case 'ArrowUp':
-            if (this.player2.y > 0) {
-                this.player2.y -= this.player2.speed;
-            }
-            break;
-        case 'ArrowDown':
-            if (this.player2.y < canvas.height - this.player2.height) {
-                this.player2.y += this.player2.speed;
-            }
-            break;
-        default:
-            break;
-    }
-}
-function handleKeyUp(event) {
-    switch (event.key) {
-        case 'w':
-            if (this.player1.y > 0) {
-                this.player1.y -= this.player1.speed;
-            }
-            break;
-        case 's':
-            if (this.player1.y < canvas.height - this.player1.height) {
-                this.player1.y += this.player1.speed;
-            }
-            break;
-        case 'ArrowUp':
-            if (this.player2.y > 0) {
-                this.player2.y -= this.player2.speed;
-            }
-            break;
-        case 'ArrowDown':
-            if (this.player2.y < canvas.height - this.player2.height) {
-                this.player2.y += this.player2.speed;
-            }
-            break;
-        default:
-            break;
-    }
 }
 function checkPaddleHit() {
     // Check if this.player1 hits ball
@@ -134,32 +127,12 @@ function checkPaddleHit() {
         // ball.resetBall(gameStarted);
     }
 }
-function updateScore() {
-    if (gameStarted) {
-        if (!scoreElement) {
-            scoreElement = createHeading('');
-            document.body.appendChild(scoreElement);
-        }
-        scoreElement.textContent = scorePlayer1 + ' : ' + scorePlayer2;
-    }
-}
-function gameLoop() {
-    draw();
-    // ball.moveBall(gameStarted, Ball);
-    checkPaddleHit();
-    updateScore();
-}
-// main program
-createStartGameHeading();
-gameLoop();
-function f() {
-    setInterval(gameLoop, 1000 / 120);
-    window.addEventListener('keydown', handleKeyDown);
-}
-window.addEventListener('keydown', function (event) {
-    if (event.code === 'Space' && !gameStarted) {
-        gameStarted = true;
-        removeStartGameHeading();
-        f();
-    }
-});
+// function updateScore() {
+//     if (gameStarted) {
+//         if (!scoreElement) {
+//             scoreElement = createHeading('');
+//             document.body.appendChild(scoreElement);
+//         }
+//         scoreElement.textContent = scorePlayer1 + ' : ' + scorePlayer2;
+//     }
+// }
