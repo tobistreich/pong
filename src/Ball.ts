@@ -1,17 +1,19 @@
 export class Ball {
-    private x: number;
-    private y: number;
-    private width: number = 20;
-    private height: number = 20;
-    private color: String = '#FFF';
-    private xSpeed: number = 1.25;
-    private ySpeed: number = 1.25;
+    public x: number;
+    public y: number;
+    public width: number = 20;
+    public height: number = 20;
+    public color: String = '#FFF';
+    public xSpeed: number = 1.25;
+    public ySpeed: number = 1.25;
 
     constructor(x: number, y: number) {
         this.x = x;
         this.y = y;
     }
-
+    public createStartGameHeading() {
+        
+    }
     public moveBall(gameCanvasHeight: number) {
         // if ball hits bottom edge change y-direction
         if (this.y >= gameCanvasHeight - this.height || this.y <= 0) {
@@ -30,10 +32,15 @@ export class Ball {
         };
     }
 
-    //     public resetBall(ball) {
-    //         ball.x = this.canvas.width / 2;
-    //         ball.y = this.canvas.height / 2;
-    //         ball.xSpeed = 2.5;
-    //         ball.ySpeed = 2.5;
-    //     }
+    public resetBall(gameCanvasHeight: number, gameCanvasWidth: number) {
+        let x = gameCanvasWidth / 2;
+        let y = gameCanvasHeight / 2;
+        let xSpeed = 1.25;
+        let ySpeed = 1.25;
+        return {
+            x, y, xSpeed, ySpeed
+        };
+
+
+    }
 }
